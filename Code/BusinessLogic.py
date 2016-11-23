@@ -26,6 +26,7 @@ Uber =[]
 Lyft =[]
 counter=0
 combined=[]
+combinedType=[]
 
 def item_and_next(some_iterable):
     items, nexts = tee(some_iterable, 2)
@@ -39,13 +40,19 @@ def Optimalprice(DestinationList):
 
     obj = try_tsp.RandomMatrix(4, 0, DestinationList)
     Tsp_cor = try_tsp.tsp(parser.parse_args(), DestinationList)
-    print Tsp_cor
+    print Tsp_cor  #print list of path traversed
 
-    for item, nxt in item_and_next(Tsp_cor):
-        if (nxt == None):
-            nxt = "0";
+    # for item, nxt in item_and_next(Tsp_cor):
+    #     if (nxt == None):
+    #         nxt = "0";
+    #
+    #     print DestinationList[int(item)][int(nxt)],   #minimum path price
 
-        print DestinationList[int(item)][int(nxt)],
+    return Tsp_cor
+
+
+
+
 
 
 
@@ -74,8 +81,10 @@ def CombinedOptimal(pricelistmatrix,type):
 
         for i in range(len(pricelistmatrix)):
             combined.append([])
+            combinedType.append([])
             for j in range(len(pricelistmatrix)):
                 combined[i].append(0)
+                combinedType[i].append("")
 
 
 
@@ -83,16 +92,28 @@ def CombinedOptimal(pricelistmatrix,type):
             for j in range(len(pricelistmatrix) ):
                 if(Uber[i][j]>Lyft[i][j]):
                     combined[i][j]=Lyft[i][j]
+                    combinedType[i][j]='LYFT'
+
 
                 elif (Uber[i][j]<=Lyft[i][j]):
                     combined[i][j] = Uber[i][j]
+                    combinedType[i][j] = 'UBER'
 
-        Optimalprice(combined)
+        cordinateList=Optimalprice(combined)
+
+        for item, nxt in item_and_next(cordinateList):
+            if (nxt == None):
+                nxt = "0";
+
+            print combined[int(item)][int(nxt)],
+            print combinedType[int(item)][int(nxt)],
 
 
+
+        #
         # for i in range(len(pricelistmatrix)):
         #     for j in range(len(pricelistmatrix) ):
-        #         print combined[i][j],
+        #         print combinedType[i][j],
         #     print '\n'
 
 
