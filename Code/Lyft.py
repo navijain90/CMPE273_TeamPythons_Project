@@ -13,33 +13,9 @@ from flask import Flask, render_template, request, redirect, session
 import requests
 import requests
 import try_tsp
+import BusinessLogic
 lyftpricelistmatrix = []
 
-
-#============================
-
-
-import random
-import argparse
-from ortools.constraint_solver import pywrapcp
-from ortools.constraint_solver import routing_enums_pb2
-
-
-userDestination=raw_input("Please enter number of destination you are going\n")
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--Destiantion', default = userDestination, type = int,
-                     help='No of Destination User wants to travel.')
-parser.add_argument('--tsp_use_random_matrix', default=True, type=bool,
-                     help='Use random cost matrix.')
-parser.add_argument('--tsp_random_forbidden_connections', default = 0,
-                    type = int, help='Number of random forbidden connections.')
-parser.add_argument('--tsp_random_seed', default = 0, type = int,
-                    help = 'Random seed.')
-parser.add_argument('--light_propagation', default = False,
-                    type = bool, help = 'Use light propagation')
-
-#========================
 
 
 #app = Flask(__name__, static_folder='static', static_url_path='')
@@ -62,7 +38,8 @@ def generate_ride_headers(token):
 
 @app.route('/lyft',methods=['GET'])
 def welcome():
-	return render_template('refer.html')
+	return "Welcome"
+	#return render_template('refer.html')
 
 @app.route('/lyft/price', methods=['GET'])
 def price():
@@ -111,26 +88,10 @@ def price():
                     counter = counter + 1
 
                     print d.get(k),
-
-        print lyftpricelistmatrix
-        # pricelistmatrix.append(pricelist)
-        # pricelist=[]
-
-    print lyftpricelistmatrix
-
-    for i in range(len(lyftpricelistmatrix)):
-        for j in range(i, len(lyftpricelistmatrix)):
-            print lyftpricelistmatrix[i][j]
-            lyftpricelistmatrix[j][i] = lyftpricelistmatrix[i][j]
-
-    obj = try_tsp.RandomMatrix(4, 0, lyftpricelistmatrix)
-    try_tsp.tsp(parser.parse_args(), lyftpricelistmatrix)
-
-
-
+    BusinessLogic.price(lyftpricelistmatrix)
     return response.text
 
 
 if __name__ == '__main__':
     print "Inside Run"
-    app.run('127.0.0.1',port=5005)
+    app.run('127.0.0.1',port=8000)
