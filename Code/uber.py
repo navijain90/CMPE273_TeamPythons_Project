@@ -32,14 +32,14 @@ def generate_ride_headers(token):
         'Content-Type': 'application/json',
     }
 
-@app.route('/',methods=['POST'])
+@app.route('/uber',methods=['POST'])
 def welcome():
     return "Welcome to the Web Service App"
 
 
 uberpricelistmatrix=[]
 
-@app.route('/price', methods=['GET'])
+@app.route('/uber/price', methods=['GET'])
 def price():
 
 

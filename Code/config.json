@@ -1,6 +1,7 @@
 {
     "base_uber_url": "https://api.uber.com/v1/",
     "base_uber_url_v1_2" : "https://api.uber.com/v1.2",
+    "base_lyft_url":"https://api.lyft.com",
 
     "latitude1": "37.781955",
     "longitude1":  "-122.402367",
