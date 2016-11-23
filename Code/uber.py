@@ -32,15 +32,15 @@ def generate_ride_headers(token):
         'Content-Type': 'application/json',
     }
 
-@app.route('/uber',methods=['POST'])
-def welcome():
-    return "Welcome to the Web Service App"
+# @app.route('/uber',methods=['POST'])
+# def welcome():
+#     return "Welcome to the Web Service App"
 
 
 uberpricelistmatrix=[]
 
-@app.route('/uber/price', methods=['GET'])
-def price():
+#@app.route('/uber/price', methods=['GET'])
+def uberPrice():
 
 
     list1=['1','2','3','4']
@@ -78,7 +78,12 @@ def price():
 
                     print d.get(k),
 
-    BusinessLogic.price(uberpricelistmatrix)
+    for i in range(len(uberpricelistmatrix)):
+        for j in range(i, len(uberpricelistmatrix)):
+            uberpricelistmatrix[j][i] = uberpricelistmatrix[i][j]
+
+    BusinessLogic.Optimalprice(uberpricelistmatrix)
+    BusinessLogic.CombinedOptimal(uberpricelistmatrix,'UBER')
 
 
     if response.status_code != 200:
@@ -86,5 +91,5 @@ def price():
 
     return response.text
 
-if __name__ == '__main__':
-    app.run('127.0.0.1',port=8080)
+# if __name__ == '__main__':
+#     app.run('127.0.0.1',port=8080)

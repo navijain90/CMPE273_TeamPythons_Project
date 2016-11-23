@@ -35,14 +35,14 @@ def generate_ride_headers(token):
         'Authorization': 'bearer %s' % token,
         'Content-Type': 'application/json',
     }
+#
+# @app.route('/lyft',methods=['GET'])
+# def welcome():
+# 	return "Welcome"
+# 	#return render_template('refer.html')
 
-@app.route('/lyft',methods=['GET'])
-def welcome():
-	return "Welcome"
-	#return render_template('refer.html')
-
-@app.route('/lyft/price', methods=['GET'])
-def price():
+#@app.route('/lyft/price', methods=['GET'])
+def lyftPrice():
     list1 = ['1', '2', '3', '4']
 
     #lyftpricelistmatrix = []
@@ -88,10 +88,17 @@ def price():
                     counter = counter + 1
 
                     print d.get(k),
-    BusinessLogic.price(lyftpricelistmatrix)
+
+
+    for i in range(len(lyftpricelistmatrix)):
+        for j in range(i,len(lyftpricelistmatrix)):
+            lyftpricelistmatrix[j][i]=lyftpricelistmatrix[i][j]
+
+    BusinessLogic.Optimalprice(lyftpricelistmatrix)
+    BusinessLogic.CombinedOptimal(lyftpricelistmatrix,'LYFT')
     return response.text
 
-
-if __name__ == '__main__':
-    print "Inside Run"
-    app.run('127.0.0.1',port=8000)
+#
+# if __name__ == '__main__':
+#     print "Inside Run"
+#     app.run('127.0.0.1',port=8000)
