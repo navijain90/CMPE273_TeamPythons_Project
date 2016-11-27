@@ -78,7 +78,7 @@
                 <div id="routeFinder"  class="container spacer about">
                     <div class="row">
                     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                        <form action="Login" method="post"> 
+                        <form name="myform"  method="POST">
                        <hr class="colorgraph">
                           
                             <h2 align="center" >Uber/Lyft ? Let us Decide for you</h2>
@@ -88,7 +88,7 @@
                             
                                  <fieldset>
                                 <div class="form-group">
-                                    <input type="text"  id="source" class="form-control input-lg" placeholder="Source" tabindex="1" required="required">
+                                    <input type="text"  id="source"  name="source" class="form-control input-lg" placeholder="Source" tabindex="1" required="required">
                                     
                                 </div>
                                      <span id="result"></span>
@@ -112,17 +112,17 @@
                            
 
                             <hr class="colorgraph">
-                   
-                               
-                            
-                                 
-                               
-                                    <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-3"><div class="form-group"><input type="button" id="submit" name="find" value="Find Route/Taxi" class="btn btn-primary btn-block"  tabindex="3"></div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-3"><div class="form-group"><input type="button" id="getloc" name="find" value="Get Locations" class="btn btn-primary btn-block"  ></div>
+                                </div>
+
+                              <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-3"><div class="form-group"><input type="submit" id="submit" name="submit" value="Find Route/Taxi" class="btn btn-primary btn-block"  ></div>
                                 </div>
                                       
-                           
+                          <input type="text"  id="latlong" name="latlong" class="form-control input-lg" >
+                            <input type="text"  id="sourcelatlong" name="sourcelatlong" class="form-control input-lg" >
+                              <input type="text"  id="sourceDestinationList" name="sourceDestinationList" class="form-control input-lg" >
                         </form>
-                      <input type="hidden"  id="latlong" class="form-control input-lg" placeholder="" >
+
                     </div>
                 </div>
                 
@@ -169,7 +169,17 @@ console.log(counter);
 
      });
 
- 
+
+
+         $("#submit").click(function () {
+	    document.myform.action = "/location"
+         document.myform.submit();             // Submit the page
+
+    return true;
+
+     });
+
+
   });
         
       function initMap() {
@@ -177,8 +187,8 @@ console.log(counter);
           zoom: 5,
           center: {lat: 37.7749295, lng: -122.41941550000001}
         });
-          
-         var input = document.getElementById('source');
+
+        var input = document.getElementById('source');
         var searchBox = new google.maps.places.SearchBox(input);
          
  
@@ -187,7 +197,7 @@ console.log(counter);
           
         var geocoder = new google.maps.Geocoder();
 
-        document.getElementById('submit').addEventListener('click', function() {
+        document.getElementById('getloc').addEventListener('click', function() {
           geocodeAddress(geocoder, map);
         //var geocoder = new google.maps.Geocoder();
          //for (i = 1; i < counter; i++) {
@@ -205,6 +215,14 @@ console.log(counter);
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
+
+              var setLatLong = document.getElementById('sourcelatlong');
+              setLatLong.value = results[0].geometry.location.lat()+ "," + results[0].geometry.location.lng();
+
+              var sourceDestinationList = document.getElementById('sourceDestinationList');
+                sourceDestinationList.value = '1:' + address;
+
+
             var marker = new google.maps.Marker({
               map: resultsMap,
               position:  {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()},
@@ -218,11 +236,23 @@ console.log(counter);
           }
         });
 
-          for (i = 1; i < counter; i++) {
-              var address = document.getElementById('destination' + i).value;
-              geocoder.geocode({'address': address}, function (results, status) {
+
+
+
+
+          for (var i = 1; i < counter; i++) {
+    (function(i) {
+
+              var Destaddress = document.getElementById('destination' + i).value;
+
+
+              geocoder.geocode({'address': Destaddress}, function (results, status) {
                   if (status === 'OK') {
                       resultsMap.setCenter(results[0].geometry.location);
+
+                       var sourceDestinationList = document.getElementById('sourceDestinationList');
+                        sourceDestinationList.value = sourceDestinationList.value + ';' + (i+1)+ ':' + Destaddress;
+
                         var setLatLong = document.getElementById('latlong');
                         if(setLatLong.value.length < 1)
                         {
@@ -231,6 +261,8 @@ console.log(counter);
                         else {
                             setLatLong.value = setLatLong.value + ";" + results[0].geometry.location.lat() + "," + results[0].geometry.location.lng();
                         }
+
+
                             var marker = new google.maps.Marker({
                           map: resultsMap,
                           position: {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()},
@@ -243,7 +275,10 @@ console.log(counter);
                       alert('Geocode was not successful for the following reason: ' + status);
                   }
               });
-          }
+
+
+            })(i);
+}
              }
 
           
