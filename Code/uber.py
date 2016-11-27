@@ -44,21 +44,21 @@ def uberPrice(locationList):
 
     url = 'https://api.uber.com/v1.2/estimates/price'
 
-    for i in range(len(locationList)):
+    for i in range(len(locationList)-1):
         print '\n'
         counter = int(i)
-        for j in range(int(i)+1,len(locationList)+1,1) :
+        for j in range(int(i)+1,len(locationList),1) :
             param={
-                'start_latitude': locationList[i-1].split(',')[0],
-                'start_longitude': locationList[i-1].split(',')[1],
-                'end_latitude': locationList[j-1].split(',')[0],
-                'end_longitude': locationList[j-1].split(',')[1],
+                'start_latitude': locationList[i].split(',')[0],
+                'start_longitude': locationList[i].split(',')[1],
+                'end_latitude': locationList[j].split(',')[0],
+                'end_longitude': locationList[j].split(',')[1],
             }
 
-            print locationList[i-1].split(',')[0]
-            print locationList[i-1].split(',')[1]
-            print locationList[j-1].split(',')[0]
-            print locationList[j-1].split(',')[1]
+            print locationList[i].split(',')[0]
+            print locationList[i].split(',')[1]
+            print locationList[j].split(',')[0]
+            print locationList[j].split(',')[1]
             response = app.requests_session.get(
                 url,
                 headers=generate_ride_headers('Xx4BN5agMH44QKdUwE10Jp1XwQAztdxwA_0-jRaJ'),
@@ -69,7 +69,7 @@ def uberPrice(locationList):
                 d = v[1]
             for k, v in d.iteritems():
                 if (k == "low_estimate"):
-                    uberpricelistmatrix[int(i)-1][counter]=int(d.get(k))
+                    uberpricelistmatrix[int(i)][counter+1]=float(d.get(k))
                     counter=counter+1
 
                     print d.get(k),
