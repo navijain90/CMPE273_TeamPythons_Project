@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-
+from decimal import *
 import json
 import ast
 from flask import jsonify
@@ -44,6 +44,7 @@ def generate_ride_headers(token):
 #@app.route('/lyft/price', methods=['GET'])
 def lyftPrice(locationList):
     list1 = ['1', '2', '3', '4']
+    print locationList
 
     #lyftpricelistmatrix = []
     #Initiliaze the list to 0
@@ -56,16 +57,21 @@ def lyftPrice(locationList):
     d = {}
     #print "inside"
     url = 'https://api.lyft.com/v1/cost'
-    for i in range(len(locationList)):
+    for i in range(len(locationList)-1):
         print '\n'
         counter = int(i)
-        for j in range(int(i) + 1, len(locationList) + 1, 1):
-            print "inside j Lyft loop"
+
+        for j in range(int(i) + 1, len(locationList), 1):
+
+            #print locationList[i].split(',')[0]
+            #print locationList[i].split(',')[1]
+            #print locationList[j].split(',')[0]
+            #print locationList[j].split(',')[1]
             param = {
-                'start_lat': locationList[i-1].split(',')[0],
-                'start_lng': locationList[i-1].split(',')[1],
-                'end_lat': locationList[j-1].split(',')[0],
-                'end_lng': locationList[j-1].split(',')[1],
+                'start_lat': locationList[i].split(',')[0],
+                'start_lng': locationList[i].split(',')[1],
+                'end_lat': locationList[j].split(',')[0],
+                'end_lng': locationList[j].split(',')[1],
             }
             response = app.requests_session.get(
                 url,
@@ -82,18 +88,18 @@ def lyftPrice(locationList):
                         d = x
             for k, v in d.iteritems():
                 if (k == "estimated_cost_cents_min"):
-                    print d.get(k)
-                    lyftpricelistmatrix[int(i) - 1][counter] = int(d.get(k))/100
-                    counter = counter + 1
+                    lyftpricelistmatrix[int(i)][counter+1] = int(d.get(k))/100.0
+                    counter=counter+1
 
-                    print d.get(k),
+                    #print d.get(k),
 
 
     for i in range(len(lyftpricelistmatrix)):
         for j in range(i,len(lyftpricelistmatrix)):
             lyftpricelistmatrix[j][i]=lyftpricelistmatrix[i][j]
 
-    lyftOptimalPathList = BusinessLogic.Optimalprice(lyftpricelistmatrix)
+    print lyftpricelistmatrix
+    lyftOptimalPathList= BusinessLogic.Optimalprice(lyftpricelistmatrix)
     BusinessLogic.CombinedOptimal(lyftpricelistmatrix,'LYFT')
     #print "LYFT : " + x + list1 + listNames
     return lyftOptimalPathList
