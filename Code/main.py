@@ -6,7 +6,7 @@ from flask import jsonify
 import os
 from urlparse import urlparse
 
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, Response, redirect, session
 #from flask_sslify import SSLify
 #from rauth import OAuth2Service
 #from ast import literal_eval
@@ -19,14 +19,35 @@ app = Flask(__name__)
 
 
 
-@app.route('/',methods=['POST'])
-def welcome():
-    return "Welcome to the Web Service App"
 
-@app.route('/price', methods=['GET'])
+@app.route('/',methods=['GET'])
+def welcome():
+	return render_template('refer.html')
+
+@app.route('/price', methods=['POST'])
 def price():
-    Lyft.lyftPrice()
-    uber.uberPrice()
+
+    dest = request.form['latlong']
+    source = request.form['sourcelatlong']
+    locationList = [source]
+    DestList = dest.split(';')
+    locationList.extend(DestList)
+
+    lyftOptimalPathList = Lyft.lyftPrice(locationList)
+    uberOptimalPathList, cordinateList, priceList, serviceNameList = uber.uberPrice(locationList)
+    print '\n'
+    print lyftOptimalPathList
+    print uberOptimalPathList
+    print cordinateList
+    print priceList
+    print serviceNameList
+
+    optimalRoute = {"BestRouteUsingLyft": lyftOptimalPathList, "BestRouteUsingUber": uberOptimalPathList, "BestRouteUsingBoth": cordinateList, "BestPrice": priceList, "InvolvedProviders": serviceNameList }
+
+    return jsonify(optimalRoute)
+
+    #return render_template('display.html', result=optimalRoute)
+
 
 
 if __name__ == '__main__':

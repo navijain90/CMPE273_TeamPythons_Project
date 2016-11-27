@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display</title>
+</head>
+<body>
+<ul>
+    {% for key in result %}
+  {{ result[key].BestRouteUsingLyft }}
+{% endfor %}
+
+{{ result }}
+</ul>
+
+<p id="demo"></p>
+
+<script>
+JSON.stringify(products)
+var obj = JSON.parse(JSON.stringify({{ result }}));
+
+
+for(i=0;i<obj.BestRouteUsingLyft.length; i++) {
+    document.getElementById("demo").innerHTML += obj.BestRouteUsingLyft[i] + " ---> ";
+}
+document.getElementById("demo").innerHTML += 0;
+
+</script>
+
+</body>
+</html>

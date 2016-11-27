@@ -6,24 +6,18 @@ import os
 from urlparse import urlparse
 
 from flask import Flask, render_template, request, redirect, session
-from flask_sslify import SSLify
-from rauth import OAuth2Service
-from ast import literal_eval
+#from flask_sslify import SSLify
+#from rauth import OAuth2Service
+#from ast import literal_eval
 import requests
-import try_tsp
-from itertools import tee, islice, chain, izip
+#import try_tsp
+#from itertools import tee, islice, chain, izip
 import BusinessLogic
 
 
 app = Flask(__name__)
 app.requests_session = requests.Session()
 
-with open('config.json') as f:
-    print "file opened"
-    config=json.load(f)
-
-base_url=config.get('base_uber_url_v1_2')
-print base_url
 
 def generate_ride_headers(token):
     """Generate the header object that is used to make api requests."""
@@ -39,30 +33,32 @@ def generate_ride_headers(token):
 
 uberpricelistmatrix=[]
 
-#@app.route('/uber/price', methods=['GET'])
-def uberPrice():
 
-
-    list1=['1','2','3','4']
+def uberPrice(locationList):
     d = {}
 
-    for i in range(4):
+    for i in range(len(locationList)):
         uberpricelistmatrix.append([])
-        for j in range(4):
+        for j in range(len(locationList)):
             uberpricelistmatrix[i].append(0)
 
-    url = config.get('base_uber_url_v1_2') + '/estimates/price'
+    url = 'https://api.uber.com/v1.2/estimates/price'
 
-    for i in list1:
+    for i in range(len(locationList)):
         print '\n'
         counter = int(i)
-        for j in range(int(i)+1,len(list1)+1,1) :
+        for j in range(int(i)+1,len(locationList)+1,1) :
             param={
-                'start_latitude': config.get('latitude' + i),
-                'start_longitude': config.get('longitude' + i),
-                'end_latitude': config.get('latitude' + str(j)),
-                'end_longitude': config.get('longitude' + str(j)),
+                'start_latitude': locationList[i-1].split(',')[0],
+                'start_longitude': locationList[i-1].split(',')[1],
+                'end_latitude': locationList[j-1].split(',')[0],
+                'end_longitude': locationList[j-1].split(',')[1],
             }
+
+            print locationList[i-1].split(',')[0]
+            print locationList[i-1].split(',')[1]
+            print locationList[j-1].split(',')[0]
+            print locationList[j-1].split(',')[1]
             response = app.requests_session.get(
                 url,
                 headers=generate_ride_headers('Xx4BN5agMH44QKdUwE10Jp1XwQAztdxwA_0-jRaJ'),
@@ -82,14 +78,14 @@ def uberPrice():
         for j in range(i, len(uberpricelistmatrix)):
             uberpricelistmatrix[j][i] = uberpricelistmatrix[i][j]
 
-    BusinessLogic.Optimalprice(uberpricelistmatrix)
-    BusinessLogic.CombinedOptimal(uberpricelistmatrix,'UBER')
+    uberOptimalPathList = BusinessLogic.Optimalprice(uberpricelistmatrix)
+    cordinateList, priceList, serviceNameList = BusinessLogic.CombinedOptimal(uberpricelistmatrix,'UBER')
 
 
     if response.status_code != 200:
         return 'There was an error', response.status_code
-
-    return response.text
+    #print "UBER : " + x + list1 + listNames
+    return uberOptimalPathList, cordinateList, priceList, serviceNameList
 
 # if __name__ == '__main__':
 #     app.run('127.0.0.1',port=8080)
