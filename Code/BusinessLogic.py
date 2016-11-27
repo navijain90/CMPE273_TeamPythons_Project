@@ -61,6 +61,9 @@ def CombinedOptimal(pricelistmatrix,type):
     global counter
     global Uber
     global Lyft
+    priceList = []
+    serviceNameList = []
+    cordinateList = []
     if type == 'UBER':
         Uber = pricelistmatrix
         counter += 1
@@ -106,7 +109,11 @@ def CombinedOptimal(pricelistmatrix,type):
                 nxt = "0";
 
             print combined[int(item)][int(nxt)],
+            priceList.append(combined[int(item)][int(nxt)])
+            serviceNameList.append(combinedType[int(item)][int(nxt)])
             print combinedType[int(item)][int(nxt)],
+
+    return cordinateList, priceList, serviceNameList
 
 
 
