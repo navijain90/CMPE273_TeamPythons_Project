@@ -78,14 +78,14 @@ def uberPrice(locationList):
         for j in range(i, len(uberpricelistmatrix)):
             uberpricelistmatrix[j][i] = uberpricelistmatrix[i][j]
 
-    uberOptimalPathList = BusinessLogic.Optimalprice(uberpricelistmatrix)
+    uberOptimalPathList, uberPriceList = BusinessLogic.Optimalprice(uberpricelistmatrix)
     cordinateList, priceList, serviceNameList = BusinessLogic.CombinedOptimal(uberpricelistmatrix,'UBER')
 
 
     if response.status_code != 200:
         return 'There was an error', response.status_code
     #print "UBER : " + x + list1 + listNames
-    return uberOptimalPathList, cordinateList, priceList, serviceNameList
+    return uberOptimalPathList, uberPriceList, cordinateList, priceList, serviceNameList
 
 # if __name__ == '__main__':
 #     app.run('127.0.0.1',port=8080)
