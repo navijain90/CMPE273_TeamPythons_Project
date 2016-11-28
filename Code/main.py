@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import json
+import BusinessLogic
 import ast
 from flask import jsonify
 import os
@@ -14,7 +15,6 @@ import requests
 import requests
 import Lyft
 import uber
-import BusinessLogic
 
 app = Flask(__name__)
 
@@ -31,24 +31,28 @@ def price():
     dest = request.form['latlong']
     source = request.form['sourcelatlong']
     locationList = [source]
+
     DestList = dest.split(';')
+
     locationList.extend(DestList)
     BusinessLogic.setParameters(len(locationList))
 
-    lyftOptimalPathList = Lyft.lyftPrice(locationList)
-    uberOptimalPathList, cordinateList, priceList, serviceNameList = uber.uberPrice(locationList)
+    lyftOptimalPathList, lyftPriceList = Lyft.lyftPrice(locationList)
+    uberOptimalPathList, uberPriceList, cordinateList, priceList, serviceNameList = uber.uberPrice(locationList)
     print '\n'
     print lyftOptimalPathList
+    print lyftPriceList
     print uberOptimalPathList
+    print uberPriceList
     print cordinateList
     print priceList
     print serviceNameList
 
     optimalRoute = {"BestRouteUsingLyft": lyftOptimalPathList, "BestRouteUsingUber": uberOptimalPathList, "BestRouteUsingBoth": cordinateList, "BestPrice": priceList, "InvolvedProviders": serviceNameList }
 
-    return jsonify(optimalRoute)
+    json_obj= json.dumps(optimalRoute)
 
-    #return render_template('display.html', result=optimalRoute)
+    return render_template('display.html', result=json_obj)
 
 
 
