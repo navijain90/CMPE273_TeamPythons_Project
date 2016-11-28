@@ -14,6 +14,7 @@ import requests
 import requests
 import Lyft
 import uber
+import BusinessLogic
 
 app = Flask(__name__)
 
@@ -32,6 +33,7 @@ def price():
     locationList = [source]
     DestList = dest.split(';')
     locationList.extend(DestList)
+    BusinessLogic.setParameters(len(locationList))
 
     lyftOptimalPathList = Lyft.lyftPrice(locationList)
     uberOptimalPathList, cordinateList, priceList, serviceNameList = uber.uberPrice(locationList)
