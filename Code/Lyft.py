@@ -99,10 +99,10 @@ def lyftPrice(locationList):
             lyftpricelistmatrix[j][i]=lyftpricelistmatrix[i][j]
 
     print lyftpricelistmatrix
-    lyftOptimalPathList= BusinessLogic.Optimalprice(lyftpricelistmatrix)
+    lyftOptimalPathList, lyftPriceList = BusinessLogic.Optimalprice(lyftpricelistmatrix)
     BusinessLogic.CombinedOptimal(lyftpricelistmatrix,'LYFT')
     #print "LYFT : " + x + list1 + listNames
-    return lyftOptimalPathList
+    return lyftOptimalPathList, lyftPriceList
 
 #
 # if __name__ == '__main__':
