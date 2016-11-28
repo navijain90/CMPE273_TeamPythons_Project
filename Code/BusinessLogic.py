@@ -42,13 +42,17 @@ def Optimalprice(DestinationList):
     Tsp_cor = try_tsp.tsp(parser.parse_args(), DestinationList)
     print Tsp_cor  #print list of path traversed
 
-    # for item, nxt in item_and_next(Tsp_cor):
-    #     if (nxt == None):
-    #         nxt = "0";
-    #
-    #     print DestinationList[int(item)][int(nxt)],   #minimum path price
+    for item, nxt in item_and_next(Tsp_cor):
+         if (nxt == None):
+             nxt = "0";
+         list.append(DestinationList[int(item)][int(nxt)])
+         print DestinationList[int(item)][int(nxt)],   #minimum path price
+    print list
 
-    return Tsp_cor
+
+
+
+    return Tsp_cor, list
 
 
 
@@ -102,7 +106,7 @@ def CombinedOptimal(pricelistmatrix,type):
                     combined[i][j] = Uber[i][j]
                     combinedType[i][j] = 'UBER'
 
-        cordinateList=Optimalprice(combined)
+        cordinateList, x =Optimalprice(combined)
 
         for item, nxt in item_and_next(cordinateList):
             if (nxt == None):
@@ -122,7 +126,3 @@ def CombinedOptimal(pricelistmatrix,type):
         #     for j in range(len(pricelistmatrix) ):
         #         print combinedType[i][j],
         #     print '\n'
-
-
-
-
