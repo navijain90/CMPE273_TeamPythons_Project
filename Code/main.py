@@ -48,11 +48,14 @@ def price():
     print priceList
     print serviceNameList
 
-    optimalRoute = {"BestRouteUsingLyft": lyftOptimalPathList, "BestRouteUsingUber": uberOptimalPathList, "BestRouteUsingBoth": cordinateList, "BestPrice": priceList, "InvolvedProviders": serviceNameList }
+    #optimalRoute = {"BestRouteUsingLyft": lyftOptimalPathList, "BestRouteUsingUber": uberOptimalPathList, "BestRouteUsingBoth": cordinateList, "BestPrice": priceList, "InvolvedProviders": serviceNameList }
 
-    json_obj= json.dumps(optimalRoute)
+    optimalRoute = {'BestRouteUsingLyft': lyftOptimalPathList, 'PriceForLyft': lyftPriceList,
+                    'PriceForUber': uberPriceList, 'BestRouteUsingUber': uberOptimalPathList,
+                    'BestRouteUsingBoth': cordinateList, 'BestPrice': priceList, 'InvolvedProviders': serviceNameList}
 
-    return render_template('display.html', result=json_obj)
+
+    return render_template('display.html', result=optimalRoute)
 
 
 
