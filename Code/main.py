@@ -30,29 +30,31 @@ def price():
 
     dest = request.form['latlong']
     source = request.form['sourcelatlong']
+
     locationList = [source]
 
     DestList = dest.split(';')
 
+    source_dest_list = request.form['sourceDestinationList']
+
     locationList.extend(DestList)
     BusinessLogic.setParameters(len(locationList))
+    try:
+        lyftOptimalPathList, lyftPriceList, useRoutepriceLyft = Lyft.lyftPrice(locationList)
+        uberOptimalPathList, uberPriceList, cordinateList, priceList, serviceNameList,userRouteUberPrice = uber.uberPrice(locationList)
+    except Exception as e:
+        print "hello", e
 
-    lyftOptimalPathList, lyftPriceList = Lyft.lyftPrice(locationList)
-    uberOptimalPathList, uberPriceList, cordinateList, priceList, serviceNameList = uber.uberPrice(locationList)
+        return render_template('display.html', result=e)
     print '\n'
-    print lyftOptimalPathList
-    print lyftPriceList
-    print uberOptimalPathList
-    print uberPriceList
-    print cordinateList
-    print priceList
-    print serviceNameList
+    print useRoutepriceLyft
+    print userRouteUberPrice
 
     #optimalRoute = {"BestRouteUsingLyft": lyftOptimalPathList, "BestRouteUsingUber": uberOptimalPathList, "BestRouteUsingBoth": cordinateList, "BestPrice": priceList, "InvolvedProviders": serviceNameList }
 
     optimalRoute = {'BestRouteUsingLyft': lyftOptimalPathList, 'PriceForLyft': lyftPriceList,
                     'PriceForUber': uberPriceList, 'BestRouteUsingUber': uberOptimalPathList,
-                    'BestRouteUsingBoth': cordinateList, 'BestPrice': priceList, 'InvolvedProviders': serviceNameList}
+                    'BestRouteUsingBoth': cordinateList, 'BestPrice': priceList, 'InvolvedProviders': serviceNameList, 'userInput': source_dest_list, 'useRoutepriceLyft':  useRoutepriceLyft, 'userRouteUberPrice': userRouteUberPrice}
 
 
     return render_template('display.html', result=optimalRoute)
