@@ -66,49 +66,126 @@
 
     </div>
 <div id="routeFinder"  class="container spacer about">
-                    <div class="row">
-
-
-                        <hr class="colorgraph">
-
-                            <h2 align="center" >Your Trip Routes </h2>
-<div class="form-group">
-<table id="example" class="table table-bordered table-striped" >
-       <thead>
-      <tr>
-
-         <th>Service Type</th>
-         <th>Route</th>
-         <th>Each Route Price</th>
-          <th>Total Price</th>
-      </tr>
-   </thead>
-     <tr>
-             <td ><b>Combined/Optimal</b></td>
-        <td id="routeComb"></td>
-    <td id="priceComb"></td>
-         <td id="totalPriceComb"></td>
-    </tr>
-         <tr>
-             <td ><b>Lyft</b></td>
-        <td id="routeLyft"></td>
-    <td id="priceLyft"></td>
-             <td id="totalPriceLyft"></td>
-    </tr>
-    <tr>
-             <td ><b>Uber</b></td>
-        <td id="routeUber"></td>
-    <td id="priceUber"></td>
-         <td id="totalPriceUber"></td>
-    </tr>
-
-    </table>
+<div class="row">
+    <hr class="colorgraph">
+    <div class="form-group">
+    <h4>User Input Route:</h4>
+        <table id="example" class="table table-bordered table-striped" >
+            <tr>
+                <td id = "inputroute"></td>
+            </tr>
+        </table>
     </div>
-                        </div>
-                        </div>
+<h4 align="center"><b >Best/Optimum Routes</b></h4>
+    <div class="form-group">
+        <table id="example" class="table table-bordered table-striped" >
+            <thead>
+            <tr>
+
+                <th>Service Type</th>
+                <th>Route</th>
+                <th>Each Route Price</th>
+                <th>Total Price</th>
+            </tr>
+            </thead>
+            <tr>
+                <td ><b>Combined/Optimal</b></td>
+                <td id="routeComb"></td>
+                <td id="priceComb"></td>
+                <td id="totalPriceComb"></td>
+            </tr>
+            <tr>
+                <td ><b>Lyft</b></td>
+                <td id="routeLyft"></td>
+                <td id="priceLyft"></td>
+                <td id="totalPriceLyft"></td>
+            </tr>
+            <tr>
+                <td ><b>Uber</b></td>
+                <td id="routeUber"></td>
+                <td id="priceUber"></td>
+                <td id="totalPriceUber"></td>
+            </tr>
+        </table>
     </div>
+
+    <h4 align="center"><b >User Input Route</b></h4>
+    <div class="form-group">
+        <table id="example" class="table table-bordered table-striped" >
+            <thead>
+            <tr>
+
+                <th>Service Type</th>
+                <th>User Route</th>
+                <th>Each Route Price</th>
+                <th>Total Price</th>
+            </tr>
+            </thead>
+            <tr>
+                <td ><b>Lyft</b></td>
+                <td id="userrouteLyft"></td>
+                <td id="userpriceLyft"></td>
+                <td id="usertotalPriceLyft"></td>
+            </tr>
+            <tr>
+                <td ><b>Uber</b></td>
+                <td id="userrouteUber"></td>
+                <td id="userpriceUber"></td>
+                <td id="usertotalPriceUber"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</div>
+</div>
 
 <script>
+//Table Entry for User Route Price
+
+//Table Entry for User Route Price for LYFT
+
+var userpriceLyft = '{{ result.useRoutepriceLyft }}' ;
+var userpriceLyftx = userpriceLyft.replace(/[[]/g,"" ).replace(/[\]]/g,"" ).split(',');
+console.log("Value" +userpriceLyftx);
+var usertotalpricelyft = parseFloat(0);
+for(i=0;i<userpriceLyftx.length; i++) {
+
+    if (i == (userpriceLyftx.length - 1)) {
+        console.log(userpriceLyftx[(userpriceLyftx.length - 1)])
+    document.getElementById("userrouteLyft").innerHTML += i +" --> 0" ;
+        document.getElementById("userpriceLyft").innerHTML += i +" --> 0"  + " ==> $" + userpriceLyftx[i] ;
+    }
+    else {
+        document.getElementById("userrouteLyft").innerHTML += i + " --> ";
+        document.getElementById("userpriceLyft").innerHTML += i + " --> " + (i+1) + "==> $" + userpriceLyftx[i] + "<br />" ;
+    }
+    usertotalpricelyft += parseFloat(userpriceLyftx[i]);
+}
+document.getElementById("usertotalPriceLyft").innerHTML = "$"+ usertotalpricelyft;
+
+
+
+
+//Table Entry for User Route Price for Uber
+
+var userpriceUber = '{{ result.userRouteUberPrice }}' ;
+var userpriceUberx = userpriceUber.replace(/[[]/g,"" ).replace(/[\]]/g,"" ).split(',');
+var usertotalpriceUber = parseFloat(0);
+for(i=0;i<userpriceUberx.length; i++) {
+    if (i == (userpriceUberx.length - 1)) {
+    document.getElementById("userrouteUber").innerHTML += i +" --> 0" ;
+        document.getElementById("userpriceUber").innerHTML += i +" --> 0"  + " ==> $" + userpriceUberx[i] ;
+    }
+    else {
+        document.getElementById("userrouteUber").innerHTML += i + " --> ";
+        document.getElementById("userpriceUber").innerHTML += i + " --> " + (i+1) + "==> $" + userpriceUberx[i] + "<br />" ;
+    }
+    usertotalpriceUber += parseFloat(userpriceUberx[i]);
+}
+document.getElementById("usertotalPriceUber").innerHTML = "$"+ usertotalpriceUber;
+
+
 
 //Table Entry for Lyft
 var bestRouteUsingLyft = '{{ result.BestRouteUsingLyft }}' ;
@@ -120,16 +197,16 @@ var totalpricelyft = parseFloat(0);
 for(i=0;i<bestRouteUsingLyftx.length; i++) {
     if (bestRouteUsingLyftx[i] == bestRouteUsingLyftx[bestRouteUsingLyftx.length - 1]) {
     document.getElementById("routeLyft").innerHTML += bestRouteUsingLyftx[i] +" --> " +bestRouteUsingLyftx[0] ;
-        document.getElementById("priceLyft").innerHTML += bestRouteUsingLyftx[i] +" --> " +bestRouteUsingLyftx[0]+ " ==> " + priceForLyftx[i] ;
+        document.getElementById("priceLyft").innerHTML += bestRouteUsingLyftx[i] +" --> " +bestRouteUsingLyftx[0]+ " ==> $" + priceForLyftx[i] ;
     }
     else {
         document.getElementById("routeLyft").innerHTML += bestRouteUsingLyftx[i] + " --> ";
-        document.getElementById("priceLyft").innerHTML += bestRouteUsingLyftx[i] +" --> " +bestRouteUsingLyftx[i+1]+ " ==> " + priceForLyftx[i] + "<br />" ;
+        document.getElementById("priceLyft").innerHTML += bestRouteUsingLyftx[i] +" --> " +bestRouteUsingLyftx[i+1]+ " ==> $" + priceForLyftx[i] + "<br />" ;
     }
     totalpricelyft += parseFloat(priceForLyftx[i]);
 
 }
-document.getElementById("totalPriceLyft").innerHTML = totalpricelyft;
+document.getElementById("totalPriceLyft").innerHTML = "$"+ totalpricelyft;
 
 
 
@@ -143,16 +220,16 @@ var totalpriceuber = parseFloat(0);
 for(i=0;i<bestRouteUsingUberx.length; i++) {
     if (bestRouteUsingUberx[i] == bestRouteUsingUberx[bestRouteUsingUberx.length - 1]) {
     document.getElementById("routeUber").innerHTML += bestRouteUsingUberx[i] +" --> " +bestRouteUsingUberx[0] ;
-        document.getElementById("priceUber").innerHTML += bestRouteUsingUberx[i] +" --> " +bestRouteUsingUberx[0]+ " ==> " + priceForUberx[i] ;
+        document.getElementById("priceUber").innerHTML += bestRouteUsingUberx[i] +" --> " +bestRouteUsingUberx[0]+ " ==> $" + priceForUberx[i] ;
     }
     else {
         document.getElementById("routeUber").innerHTML += bestRouteUsingUberx[i] + " --> ";
-        document.getElementById("priceUber").innerHTML += bestRouteUsingUberx[i] +" --> " +bestRouteUsingUberx[i+1]+ " ==> " + priceForUberx[i] + "<br />" ;
+        document.getElementById("priceUber").innerHTML += bestRouteUsingUberx[i] +" --> " +bestRouteUsingUberx[i+1]+ " ==> $" + priceForUberx[i] + "<br />" ;
     }
     totalpriceuber += parseFloat(priceForUberx[i]);
 
 }
-document.getElementById("totalPriceUber").innerHTML = totalpriceuber;
+document.getElementById("totalPriceUber").innerHTML = "$"+ totalpriceuber;
 
 //Table Entry for Optimal
 var bestRouteUsingBoth = '{{ result.BestRouteUsingBoth }}' ;
@@ -168,17 +245,33 @@ var totalpricecomb = parseFloat(0);
 for(i=0;i<bestRouteUsingBothx.length; i++) {
     if (bestRouteUsingBothx[i] == bestRouteUsingBothx[bestRouteUsingBothx.length - 1]) {
     document.getElementById("routeComb").innerHTML += bestRouteUsingBothx[i] +" --> " +bestRouteUsingBothx[0] ;
-        document.getElementById("priceComb").innerHTML += bestRouteUsingBothx[i] +" --> " +bestRouteUsingBothx[0]+ " ==> " + bestPricex[i] + " (" + involvedProvidersx[i] + ")" ;
+        document.getElementById("priceComb").innerHTML += bestRouteUsingBothx[i] +" --> " +bestRouteUsingBothx[0]+ " ==> $" + bestPricex[i] + " (" + involvedProvidersx[i] + ")" ;
     }
     else {
         document.getElementById("routeComb").innerHTML += bestRouteUsingBothx[i] + " --> ";
-        document.getElementById("priceComb").innerHTML += bestRouteUsingBothx[i] +" --> " +bestRouteUsingBothx[i+1]+ " ==> " + bestPricex[i] + " (" + involvedProvidersx[i] + ")"+  "<br />" ;
+        document.getElementById("priceComb").innerHTML += bestRouteUsingBothx[i] +" --> " +bestRouteUsingBothx[i+1]+ " ==> $" + bestPricex[i] + " (" + involvedProvidersx[i] + ")"+  "<br />" ;
     }
     totalpricecomb += parseFloat(bestPricex[i]);
 
 }
-document.getElementById("totalPriceComb").innerHTML = totalpricecomb;
+document.getElementById("totalPriceComb").innerHTML = "$"+ totalpricecomb.toFixed(2) +"   (Recommended)";
 
+
+//Code to show User Input Route
+var source_dest_list = '{{ result.userInput }}' ;
+
+var userInput = source_dest_list.split(';')
+
+    for(i=0;i<userInput.length; i++) {
+        var routeNumber = parseInt(userInput[i].split(':')[0]) - 1;
+    if (userInput[i] == userInput[userInput.length - 1]) {
+    document.getElementById("inputroute").innerHTML += routeNumber + " -- " + userInput[i].split(':')[1] ;
+  }
+    else {
+        document.getElementById("inputroute").innerHTML += routeNumber + " -- " + userInput[i].split(':')[1] + "<br />";
+  }
+
+}
 
 </script>
 
