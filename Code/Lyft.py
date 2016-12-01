@@ -101,8 +101,21 @@ def lyftPrice(locationList):
     print lyftpricelistmatrix
     lyftOptimalPathList, lyftPriceList = BusinessLogic.Optimalprice(lyftpricelistmatrix)
     BusinessLogic.CombinedOptimal(lyftpricelistmatrix,'LYFT')
+
+    #Logic for User Added Route Output
+    useRouteprice = []
+    for s in range(len(lyftpricelistmatrix) - 1):
+
+        value = lyftpricelistmatrix[s][s + 1]
+        useRouteprice.append(value)
+
+        if (s == (len(lyftpricelistmatrix) - 2)):
+            val = lyftpricelistmatrix[s + 1][0]
+            useRouteprice.append(val)
+
+
     #print "LYFT : " + x + list1 + listNames
-    return lyftOptimalPathList, lyftPriceList
+    return lyftOptimalPathList, lyftPriceList, useRouteprice
 
 #
 # if __name__ == '__main__':
