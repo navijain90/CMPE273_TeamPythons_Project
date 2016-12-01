@@ -21,13 +21,20 @@ app = Flask(__name__)
 
 
 
+
+
+
 @app.route('/',methods=['GET'])
 def welcome():
 	return render_template('refer.html')
 
+@app.route('/price', methods=['GET'])
+def priceGet():
+    return render_template('refer.html')
+
+
 @app.route('/price', methods=['POST'])
 def price():
-
     dest = request.form['latlong']
     source = request.form['sourcelatlong']
 
