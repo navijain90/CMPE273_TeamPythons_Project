@@ -14,7 +14,7 @@ import requests
 import requests
 import try_tsp
 import BusinessLogic
-lyftpricelistmatrix = []
+# lyftpricelistmatrix = []
 
 
 
@@ -44,6 +44,7 @@ def generate_ride_headers(token):
 #@app.route('/lyft/price', methods=['GET'])
 def lyftPrice(locationList):
     list1 = ['1', '2', '3', '4']
+    lyftpricelistmatrix = []
     print locationList
 
     #lyftpricelistmatrix = []

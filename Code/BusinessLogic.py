@@ -28,8 +28,7 @@ def setParameters(userDestination):
 Uber =[]
 Lyft =[]
 counter=0
-combined=[]
-combinedType=[]
+
 
 def item_and_next(some_iterable):
     items, nexts = tee(some_iterable, 2)
@@ -60,36 +59,26 @@ def Optimalprice(DestinationList):
     return Tsp_cor, list
 
 
-
-
-
-
-
-
 def CombinedOptimal(pricelistmatrix,type):
+    combined = []
+    combinedType = []
     global counter
     global Uber
     global Lyft
     priceList = []
     serviceNameList = []
     cordinateList = []
+
     if type == 'UBER':
         Uber = pricelistmatrix
         counter += 1
-        print "inside uber"
-        print counter
 
     elif type == 'LYFT':
         Lyft = pricelistmatrix
         counter += 1
-        print "inside lift"
-        print counter
-
-
-    print counter
-
 
     if(counter==2):
+        counter=0
 
         for i in range(len(pricelistmatrix)):
             combined.append([])
@@ -123,11 +112,3 @@ def CombinedOptimal(pricelistmatrix,type):
             print combinedType[int(item)][int(nxt)],
 
     return cordinateList, priceList, serviceNameList
-
-
-
-        #
-        # for i in range(len(pricelistmatrix)):
-        #     for j in range(len(pricelistmatrix) ):
-        #         print combinedType[i][j],
-        #     print '\n'

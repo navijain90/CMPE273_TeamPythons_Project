@@ -1,17 +1,6 @@
 from __future__ import absolute_import
-import json
-import ast
-from flask import jsonify
-import os
-from urlparse import urlparse
-
-from flask import Flask, render_template, request, redirect, session
-#from flask_sslify import SSLify
-#from rauth import OAuth2Service
-#from ast import literal_eval
+from flask import Flask
 import requests
-#import try_tsp
-#from itertools import tee, islice, chain, izip
 import BusinessLogic
 
 
@@ -26,15 +15,12 @@ def generate_ride_headers(token):
         'Content-Type': 'application/json',
     }
 
-# @app.route('/uber',methods=['POST'])
-# def welcome():
-#     return "Welcome to the Web Service App"
 
-
-uberpricelistmatrix=[]
+# uberpricelistmatrix=[]
 
 
 def uberPrice(locationList):
+    uberpricelistmatrix = []
     d = {}
 
     for i in range(len(locationList)):
@@ -84,9 +70,7 @@ def uberPrice(locationList):
 
     if response.status_code != 200:
         return 'There was an error', response.status_code
-    #print "UBER : " + x + list1 + listNames
 
-    # added by Bhavika to calculate price for route as added by user
     userRouteUberPrice = []
     for s in range(len(uberpricelistmatrix) - 1):
         value = uberpricelistmatrix[s][s + 1]
@@ -98,5 +82,3 @@ def uberPrice(locationList):
 
     return uberOptimalPathList, uberPriceList, cordinateList, priceList, serviceNameList,userRouteUberPrice
 
-# if __name__ == '__main__':
-#     app.run('127.0.0.1',port=8080)
