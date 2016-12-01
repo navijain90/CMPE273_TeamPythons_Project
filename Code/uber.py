@@ -85,7 +85,18 @@ def uberPrice(locationList):
     if response.status_code != 200:
         return 'There was an error', response.status_code
     #print "UBER : " + x + list1 + listNames
-    return uberOptimalPathList, uberPriceList, cordinateList, priceList, serviceNameList
+
+    # added by Bhavika to calculate price for route as added by user
+    userRouteUberPrice = []
+    for s in range(len(uberpricelistmatrix) - 1):
+        value = uberpricelistmatrix[s][s + 1]
+        userRouteUberPrice.append(value)
+        if (s == (len(uberpricelistmatrix) - 2)):
+            val = uberpricelistmatrix[s + 1][0]
+            userRouteUberPrice.append(val)
+
+
+    return uberOptimalPathList, uberPriceList, cordinateList, priceList, serviceNameList,userRouteUberPrice
 
 # if __name__ == '__main__':
 #     app.run('127.0.0.1',port=8080)
