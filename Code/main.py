@@ -50,12 +50,17 @@ def price():
         lyftOptimalPathList, lyftPriceList, useRoutepriceLyft = Lyft.lyftPrice(locationList)
         uberOptimalPathList, uberPriceList, cordinateList, priceList, serviceNameList,userRouteUberPrice = uber.uberPrice(locationList)
     except Exception as e:
-        print "hello", e
 
-        return render_template('display.html', result=e)
+        print e
+        if str(e) == "1":
+            return render_template('404.html', result=e)
+        else:
+            return render_template('server_error.html')
     print '\n'
     print useRoutepriceLyft
     print userRouteUberPrice
+    print cordinateList
+    print priceList
 
     #optimalRoute = {"BestRouteUsingLyft": lyftOptimalPathList, "BestRouteUsingUber": uberOptimalPathList, "BestRouteUsingBoth": cordinateList, "BestPrice": priceList, "InvolvedProviders": serviceNameList }
 

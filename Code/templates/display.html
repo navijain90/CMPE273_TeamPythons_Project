@@ -56,7 +56,7 @@
                 <!-- Nav Starts -->
                   <div class="navbar-collapse  collapse">
                     <ul class="nav navbar-nav navbar-right scroll">
-                   <li ><a href="refer.html"><strong>Home</strong></a></li>
+                   <li ><a href="{{ url_for("price") }}"><strong>Home</strong></a></li>
                     </ul>
                 </div>
                 <!-- #Nav Ends -->
@@ -162,7 +162,7 @@ for(i=0;i<userpriceLyftx.length; i++) {
     }
     usertotalpricelyft += parseFloat(userpriceLyftx[i]);
 }
-document.getElementById("usertotalPriceLyft").innerHTML = "$"+ usertotalpricelyft;
+document.getElementById("usertotalPriceLyft").innerHTML = "$"+ usertotalpricelyft.toFixed(2);
 
 
 
@@ -183,7 +183,7 @@ for(i=0;i<userpriceUberx.length; i++) {
     }
     usertotalpriceUber += parseFloat(userpriceUberx[i]);
 }
-document.getElementById("usertotalPriceUber").innerHTML = "$"+ usertotalpriceUber;
+document.getElementById("usertotalPriceUber").innerHTML = "$"+ usertotalpriceUber.toFixed(2);
 
 
 
@@ -206,7 +206,7 @@ for(i=0;i<bestRouteUsingLyftx.length; i++) {
     totalpricelyft += parseFloat(priceForLyftx[i]);
 
 }
-document.getElementById("totalPriceLyft").innerHTML = "$"+ totalpricelyft;
+document.getElementById("totalPriceLyft").innerHTML = "$"+ totalpricelyft.toFixed(2);
 
 
 
@@ -229,7 +229,7 @@ for(i=0;i<bestRouteUsingUberx.length; i++) {
     totalpriceuber += parseFloat(priceForUberx[i]);
 
 }
-document.getElementById("totalPriceUber").innerHTML = "$"+ totalpriceuber;
+document.getElementById("totalPriceUber").innerHTML = "$"+ totalpriceuber.toFixed(2);
 
 //Table Entry for Optimal
 var bestRouteUsingBoth = '{{ result.BestRouteUsingBoth }}' ;
