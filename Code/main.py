@@ -15,6 +15,7 @@ import requests
 import requests
 import Lyft
 import uber
+import twilio_use
 
 app = Flask(__name__)
 
@@ -70,6 +71,14 @@ def price():
 
 
     return render_template('display.html', result=optimalRoute)
+
+@app.route('/notify', methods=['POST'])
+def sendRoute():
+    request_json = request.get_json(force=True)
+    number=request_json['PhoneNumber']
+    #message=request_json['Route']
+    twilio_use.sendMessage(number)
+
 
 
 
