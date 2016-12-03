@@ -2,10 +2,21 @@ from __future__ import absolute_import
 
 import json
 import BusinessLogic
+
 import ast
 from flask import jsonify
 import os
 from urlparse import urlparse
+
+
+#Persistent DB
+# Creating Data Base if not created already
+from model import db
+from model import createdb
+from model import TripResult
+createdb()
+# creating table if not already created
+db.create_all()
 
 from flask import Flask, render_template, request, Response, redirect, session
 #from flask_sslify import SSLify
@@ -58,10 +69,10 @@ def price():
         else:
             return render_template('server_error.html')
     print '\n'
-    print useRoutepriceLyft
-    print userRouteUberPrice
-    print cordinateList
+    print uberPriceList
+    print lyftPriceList
     print priceList
+    print source_dest_list
 
     #optimalRoute = {"BestRouteUsingLyft": lyftOptimalPathList, "BestRouteUsingUber": uberOptimalPathList, "BestRouteUsingBoth": cordinateList, "BestPrice": priceList, "InvolvedProviders": serviceNameList }
 
@@ -69,6 +80,31 @@ def price():
                     'PriceForUber': uberPriceList, 'BestRouteUsingUber': uberOptimalPathList,
                     'BestRouteUsingBoth': cordinateList, 'BestPrice': priceList, 'InvolvedProviders': serviceNameList, 'userInput': source_dest_list, 'useRoutepriceLyft':  useRoutepriceLyft, 'userRouteUberPrice': userRouteUberPrice}
 
+    totaluberprice = sum(uberPriceList)
+    totallyftprice = sum(lyftPriceList)
+    bestprovider = "LYFT"
+    if(totallyftprice > totaluberprice):
+        bestprovider = "UBER"
+    totalpriceList = sum(priceList)
+    locationDesc = source_dest_list.split(';')
+    sourcelocation = locationDesc[0]
+    destinations = locationDesc[1:]
+    x= ', '.join(destinations)
+
+
+    print totallyftprice
+    print type(totallyftprice)
+    try:
+        db_obj = TripResult(sourcelocation=sourcelocation, destinations=x, uberprice=totaluberprice,
+                            lyftprice=totallyftprice, optimalprice=totalpriceList,
+                            bestprovider=bestprovider)
+        db.session.add(db_obj)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        db.session.flush()
+        print e
+        return render_template('404.html', result=e)
 
     return render_template('display.html', result=optimalRoute)
 
