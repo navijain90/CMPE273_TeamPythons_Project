@@ -19,27 +19,45 @@ h2 { color: #7c795d; font-family: 'Source Sans Pro', sans-serif; font-size: 28px
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>PlanMyTrip</title>
 
-    <!-- Google fonts -->
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
 
     <!-- font awesome -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- bootstrap -->
-    <link rel="stylesheet" href="/static/style/bootstrap.min.css" />
-
-    <link rel="stylesheet" href="/static/style/set.css" />
-
-
-    <!-- favicon -->
+    <!-- Bootstrap core CSS     -->
+     <link rel="stylesheet" href="/static/style/bootstrap.min.css" />
 
 
-    <link rel="stylesheet" href="/static/style/style.css">
+     <link rel="stylesheet" href="/static/style/style.css">
+     <link rel="stylesheet" href="/static/style/set.css" />
+    <!-- Animation library for notifications   -->
+    <link href="/static/style/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="/static/style/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="/static/style/pe-icon-7-stroke.css" rel="stylesheet" />
+
+
+        <!-- Added by Anshul -->
+        <!-- Plugin CSS -->
+    <link href="/static/style/magnific-popup.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="/static/style/creative.min.css" rel="stylesheet">
+
+
 </head>
 
 <body >
@@ -48,27 +66,31 @@ h2 { color: #7c795d; font-family: 'Source Sans Pro', sans-serif; font-size: 28px
 
 <!-- Header Starts -->
 
-    <div class="container">
-        <div class="navbar-inverse navbar-fixed-top" role="navigation" id="top-nav">
-            <div class="container">
-                <div class="navbar-header">
+  <nav id="mainNav" class="navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
                     <!-- Logo Starts -->
                     <h1 style="font-size:250%;">Plan My Trip</h1>
                     <!-- #Logo Ends -->
 
                 </div>
-                <!-- Nav Starts -->
-                  <div class="navbar-collapse  collapse">
-                    <ul class="nav navbar-nav navbar-right scroll">
-                   <li ><a href="/"><strong>Home</strong></a></li>
-                    </ul>
-                </div>
-                <!-- #Nav Ends -->
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li >
+                        <a href="{{ url_for("price") }}"><strong>Home</strong></a>
+                    </li>
+                    <li >
+                        <a href="{{ url_for("analyse") }}"><strong>Analysis</strong></a>
+                    </li>
+
+                </ul>
             </div>
+            <!-- /.navbar-collapse -->
         </div>
-
-    </div>
+        <!-- /.container-fluid -->
+    </nav>
 
 		<!-- header -->
 		<div id="routeFinder"  class="container spacer about">
