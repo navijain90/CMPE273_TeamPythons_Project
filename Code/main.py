@@ -44,6 +44,36 @@ def welcome():
 def priceGet():
     return render_template('refer.html')
 
+@app.route('/analysis', methods=['GET'])
+def analyse():
+    from sqlalchemy import func
+    uberPriceList=[]
+    lyftPricelist=[]
+    lyftcount = ""
+    ubercount = ""
+    try:
+        analysis_query = db.session.query(TripResult.bestprovider, func.count(TripResult.id).label('count'),func.sum(TripResult.uberprice).label('totaluber'),func.sum(TripResult.lyftprice).label('totallyft')).group_by(TripResult.bestprovider).all()
+        for row in analysis_query:
+
+            if row.bestprovider == "LYFT":
+                lyftcount=row.count
+            if row.bestprovider == "UBER":
+                ubercount = row.count
+
+        analysis_query_last_rows = db.session.query(TripResult.uberprice,TripResult.lyftprice).order_by(TripResult.id.desc()).limit(10).all()
+        for row in analysis_query_last_rows:
+            uberPriceList.append(round(float(str(row.uberprice)),2))
+            lyftPricelist.append(round(float(str(row.lyftprice)),2))
+    except Exception as e:
+        db.session.rollback()
+        db.session.flush()
+        print e
+        return render_template('server_error.html', result=e)
+
+    analysis_result = {'ubercount': ubercount, 'lyftcount': lyftcount, 'uberPriceList': uberPriceList, 'lyftPricelist': lyftPricelist}
+    return render_template('analysis.html', result=analysis_result)
+
+
 
 @app.route('/price', methods=['POST'])
 def price():
@@ -104,7 +134,8 @@ def price():
         db.session.rollback()
         db.session.flush()
         print e
-        return render_template('404.html', result=e)
+        return render_template('server_error.html', result=e)
+
 
     return render_template('display.html', result=optimalRoute)
 
