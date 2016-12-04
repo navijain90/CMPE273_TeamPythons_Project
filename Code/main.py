@@ -142,6 +142,7 @@ def price():
 @app.route('/notify', methods=['POST'])
 def sendRoute():
     number=request.form['PhoneNumber']
+    print number
     #message=request_json['Route']
     twilio_use.sendMessage(number)
 

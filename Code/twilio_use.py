@@ -13,5 +13,6 @@ def sendMessage(number):
     client.messages.create(
         to=number,
         from_='+19518214747',
-        body=body,
+        #body=body,
+        body="Test",
     )
