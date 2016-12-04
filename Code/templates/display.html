@@ -27,16 +27,31 @@
 
     <link rel="stylesheet" href="/static/style/style.css">
 
+        <!-- Added by Anshul -->
+        <!-- Plugin CSS -->
+
+    <!-- Theme CSS -->
+    <link href="/static/style/creative.min.css" rel="stylesheet">
+
+   <!-- jQuery -->
+    <script src="/static/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="/static/scrollreveal.min.js"></script>
+    <script src="/static/jquery.magnific-popup.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="/static/creative.min.js"></script>
 
     <!-- jquery for Adding Multiple Text Boxes Start-->
     <script type="text/javascript" src="/static/jquery-3.1.1.js"></script>
         <!-- jquery for Adding Multiple Text Boxes End-->
 
-        <!-- JavaScript for Adding Multiple Text Box Start-->
-        <script type="text/javascript">
 
-</script>
-<!-- JavaScript for Adding Multiple Text Box End-->
 </head>
 
 <body>
@@ -69,17 +84,42 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+
+
 <div id="routeFinder"  class="container spacer about">
+    <div class="row">
+   <div class="form-group col-md-offset-6">
+      <form action={{ url_for("sendRoute") }}" method="POST" >
+
+
+                                <div class="col-xs-12 col-sm-6 col-md-4">
+                                        <input type="tel" name="PhoneNumber" id="PhoneNumber" pattern="[0-9]{10}" title='Phone Number should be of 10 digits' class="form-control input-lg" placeholder="Phone" tabindex="1" required="required">
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-5">
+                                  <input type="submit" name="sendmessage" value="Send Route" class="btn btn-primary btn-md" tabindex="2">
+                                </div>
+
+                        </form>
+        </div>
+          </div>
 <div class="row">
-    <hr class="colorgraph">
+
     <div class="form-group">
-    <h4>User Input Route:</h4>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+    <h4>Route Definition:</h4>
+            </div>
+
+        <br>
         <table id="example" class="table table-bordered table-striped" >
             <tr>
                 <td id = "inputroute"></td>
             </tr>
         </table>
     </div>
+
+
+    </div>
+
 <h4 align="center"><b >Best/Optimum Routes</b></h4>
     <div class="form-group">
         <table id="example" class="table table-bordered table-striped" >
