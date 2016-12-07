@@ -301,8 +301,8 @@
         var ubercount = '{{ result.ubercount }}' ;
         var lyftcount = '{{ result.lyftcount }}' ;
         var totalcount = parseInt(lyftcount) + parseInt(ubercount);
-        var uberpercent = parseInt((ubercount/totalcount)*100);
-        var lyftpercent = parseInt((lyftcount/totalcount)*100);
+        var uberpercent = parseFloat((ubercount/totalcount)*100).toFixed(2);
+        var lyftpercent = parseFloat((lyftcount/totalcount)*100).toFixed(2);
 
         document.getElementById("pie_sample").innerHTML = "Sample Size Considered : <strong>"+ totalcount + "</strong> Trips";
 
