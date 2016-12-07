@@ -1,17 +1,19 @@
+##############################################################
+#
+# File :- main.py
+#
+#Description :- This file interacts with the UI
+#
+#Author :- Team Fantastic4
+#
+###############################################################
+
 from __future__ import absolute_import
 
-import json
+
 import BusinessLogic
 import re
 
-import ast
-from flask import jsonify
-import os
-from urlparse import urlparse
-
-
-#Persistent DB
-# Creating Data Base if not created already
 from model import db
 from model import createdb
 from model import TripResult
@@ -20,11 +22,7 @@ createdb()
 db.create_all()
 
 from flask import Flask, render_template, request, Response, redirect, session
-#from flask_sslify import SSLify
-#from rauth import OAuth2Service
-#from ast import literal_eval
-import requests
-import requests
+
 import Lyft
 import uber
 import twilio_use
@@ -102,15 +100,12 @@ def price():
     print priceList
     print source_dest_list
 
-    #optimalRoute = {"BestRouteUsingLyft": lyftOptimalPathList, "BestRouteUsingUber": uberOptimalPathList, "BestRouteUsingBoth": cordinateList, "BestPrice": priceList, "InvolvedProviders": serviceNameList }
-
     optimalRoute = {'BestRouteUsingLyft': lyftOptimalPathList, 'PriceForLyft': lyftPriceList,
                     'PriceForUber': uberPriceList, 'BestRouteUsingUber': uberOptimalPathList,
                     'BestRouteUsingBoth': cordinateList, 'BestPrice': priceList, 'InvolvedProviders': serviceNameList, 'userInput': source_dest_list, 'useRoutepriceLyft':  useRoutepriceLyft, 'userRouteUberPrice': userRouteUberPrice}
 
     totaluberprice = sum(uberPriceList)
     totallyftprice = sum(lyftPriceList)
-    optimalPrice=sum(priceList)
     bestprovider = "LYFT"
     if(totallyftprice > totaluberprice):
         bestprovider = "UBER"
@@ -162,13 +157,13 @@ def price():
             j=j+1
             if(j>=len(cordinateList)):
                 j=0
-            print cordinateList[i]
-            print j,type(j)
-            print cordinateList[j]
-            print mes_dict[cordinateList[i]]
-            print mes_dict[cordinateList[j]]
-            print mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]
-            print serviceNameList[i]
+            # print cordinateList[i]
+            # print j,type(j)
+            # print cordinateList[j]
+            # print mes_dict[cordinateList[i]]
+            # print mes_dict[cordinateList[j]]
+            # print mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]
+            # print serviceNameList[i]
 
             str_mes=str_mes+(mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]+" via("+serviceNameList[i]+") \n")
 
@@ -182,13 +177,9 @@ def price():
 def sendRoute():
     number=request.form['PhoneNumber']
     print number
-    #message=request_json['Route']
     twilio_use.sendMessage(number)
     print "Message sent"
     return render_template('refer.html')
-
-
-
 
 if __name__ == '__main__':
     print "Inside Run"

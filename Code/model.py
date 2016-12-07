@@ -1,9 +1,18 @@
+##############################################################
+#
+# File :- Model.py
+#
+#Description :- This file saves the data to the DB for analysis
+#
+#Author :- Team Fantastic4
+#
+###############################################################
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-#from flask_restless import APIManager
 
 app = Flask(__name__)
 

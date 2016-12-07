@@ -1,24 +1,24 @@
+##############################################################
+#
+# File :- Lyft.py
+#
+#Description :- This file interacts with the lyft API and provides
+#the output to calcuate optimal solution
+#
+#Author :- Team Fantastic4
+#
+###############################################################
+
 from __future__ import absolute_import
-from decimal import *
 import json
-import ast
-from flask import jsonify
-import os
-from urlparse import urlparse
 
 from flask import Flask, render_template, request, redirect, session
-#from flask_sslify import SSLify
-#from rauth import OAuth2Service
-#from ast import literal_eval
+
 import requests
-import requests
-import try_tsp
 import BusinessLogic
-# lyftpricelistmatrix = []
 
 
 
-#app = Flask(__name__, static_folder='static', static_url_path='')
 app = Flask(__name__)
 app.requests_session = requests.Session()
 
@@ -35,20 +35,13 @@ def generate_ride_headers(token):
         'Authorization': 'bearer %s' % token,
         'Content-Type': 'application/json',
     }
-#
-# @app.route('/lyft',methods=['GET'])
-# def welcome():
-# 	return "Welcome"
-# 	#return render_template('refer.html')
 
-#@app.route('/lyft/price', methods=['GET'])
 def lyftPrice(locationList):
     list1 = ['1', '2', '3', '4']
     lyftpricelistmatrix = []
     print locationList
 
-    #lyftpricelistmatrix = []
-    #Initiliaze the list to 0
+
     for i in range(len(locationList)):
         lyftpricelistmatrix.append([])
         for j in range(len(locationList)):
@@ -64,10 +57,7 @@ def lyftPrice(locationList):
 
         for j in range(int(i) + 1, len(locationList), 1):
 
-            #print locationList[i].split(',')[0]
-            #print locationList[i].split(',')[1]
-            #print locationList[j].split(',')[0]
-            #print locationList[j].split(',')[1]
+
             param = {
                 'start_lat': locationList[i].split(',')[0],
                 'start_lng': locationList[i].split(',')[1],
@@ -115,10 +105,5 @@ def lyftPrice(locationList):
             useRouteprice.append(val)
 
 
-    #print "LYFT : " + x + list1 + listNames
     return lyftOptimalPathList, lyftPriceList, useRouteprice
 
-#
-# if __name__ == '__main__':
-#     print "Inside Run"
-#     app.run('127.0.0.1',port=8000)

@@ -1,10 +1,19 @@
+##############################################################
+#
+# File :- BusinessLogic.py
+#
+#Description :- This file will call the tsp algorithm for
+#calculation of optimal path
+#
+#Author :- Team Fantastic4
+#
+###############################################################
+
 from __future__ import absolute_import
 import try_tsp
 from itertools import tee, islice, chain, izip
 
 import argparse
-from ortools.constraint_solver import pywrapcp
-from ortools.constraint_solver import routing_enums_pb2
 
 parser1 = argparse.ArgumentParser(conflict_handler='resolve')
 

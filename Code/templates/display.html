@@ -305,6 +305,7 @@ document.getElementById("totalPriceComb").innerHTML = "$"+ totalpricecomb.toFixe
 var source_dest_list = '{{ result.userInput }}' ;
 
 var userInput = source_dest_list.split(';')
+userInput.sort()
 
     for(i=0;i<userInput.length; i++) {
         var routeNumber = parseInt(userInput[i].split(':')[0]) - 1;
