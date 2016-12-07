@@ -18,8 +18,6 @@ Niche Feature: We are showing mixed solution. For ex user have added source loca
 
 Lastly, we have added text message functionality. So, user will get text message for the optimum route. By having this feature, user does not require to find same route again and again.
 
-
-
 So, we have shown routes 
 1) Using Uber which is added by user
 2) Using Lyft which is added by user
