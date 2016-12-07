@@ -179,7 +179,7 @@ def sendRoute():
     print number
     twilio_use.sendMessage(number)
     print "Message sent"
-    return render_template('refer.html')
+    return render_template('sms.html')
 
 if __name__ == '__main__':
     print "Inside Run"
