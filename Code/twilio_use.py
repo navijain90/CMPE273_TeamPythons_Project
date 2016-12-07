@@ -1,8 +1,8 @@
 from twilio.rest import TwilioRestClient
 message=""
 # put your own credentials here
-ACCOUNT_SID = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' #Will add the authorization on the demo day
-AUTH_TOKEN = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+ACCOUNT_SID = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' #Will add the authorization on the demo day
+AUTH_TOKEN = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 def setRoute(route):

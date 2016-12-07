@@ -32,12 +32,6 @@ pattern = re.compile('[^A-Za-z0-9 -]')
 
 app = Flask(__name__)
 
-
-
-
-
-
-
 @app.route('/',methods=['GET'])
 def welcome():
 	return render_template('refer.html')
@@ -186,6 +180,8 @@ def sendRoute():
     print number
     #message=request_json['Route']
     twilio_use.sendMessage(number)
+    print "Message sent"
+    return render_template('refer.html')
 
 
 
