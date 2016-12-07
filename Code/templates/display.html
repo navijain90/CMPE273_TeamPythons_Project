@@ -72,7 +72,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active">
-                        <a href="{{ url_for("price") }}"><strong>Home</strong></a>
+                        <a href="{{ url_for("welcome") }}"><strong>Home</strong></a>
                     </li>
                     <li >
                         <a href="{{ url_for("analyse") }}"><strong>Analysis</strong></a>
@@ -99,9 +99,18 @@
                                   <input type="submit" name="sendmessage" value="Send Route" class="btn btn-primary btn-md" tabindex="2">
                                 </div>
 
+
+
+
                         </form>
+
+
+
+
+
         </div>
           </div>
+<div  id="ppage">
 <div class="row">
 
     <div class="form-group">
@@ -180,7 +189,7 @@
         </table>
     </div>
 
-</div>
+</div></div>
 </div>
 </div>
 
@@ -319,6 +328,28 @@ userInput.sort()
 }
 
 </script>
+
+
+
+<script>
+function myFunction() {
+       var prtContent = document.getElementById("ppage");
+                        var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+                        WinPrint.document.write(prtContent.innerHTML);
+                        WinPrint.document.close();
+                        WinPrint.focus();
+                        WinPrint.print();
+                        WinPrint.close();
+}
+</script>
+
+
+  <div class="col-xs-12 col-sm-6 col-md-2 " style="left: 650px">
+
+      <button type="button"   class="btn btn-primary btn-md" tabindex="2" onclick="myFunction()"> <i class="fa fa-print"></i> Print</button>
+                                </div>
+
+
 
 </body>
 </html>
