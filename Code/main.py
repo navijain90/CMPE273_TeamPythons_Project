@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import json
 import BusinessLogic
+import re
 
 import ast
 from flask import jsonify
@@ -27,6 +28,7 @@ import requests
 import Lyft
 import uber
 import twilio_use
+pattern = re.compile('[^A-Za-z0-9 -]')
 
 app = Flask(__name__)
 
@@ -112,6 +114,7 @@ def price():
 
     totaluberprice = sum(uberPriceList)
     totallyftprice = sum(lyftPriceList)
+    optimalPrice=sum(priceList)
     bestprovider = "LYFT"
     if(totallyftprice > totaluberprice):
         bestprovider = "UBER"
@@ -137,6 +140,44 @@ def price():
         return render_template('server_error.html', result=e)
 
 
+    mes_dict={}
+    print "*************************************************************************************"
+    print priceList
+    print serviceNameList
+    print cordinateList
+    print source_dest_list
+    print "*************************************************************************************"
+    userInput=source_dest_list.split(";")
+    for i in range(0,len(userInput)):
+        part1= int(userInput[i].split(":")[0])-1
+        part1=str(part1)
+        part= userInput[i].split(":")[1].split(",")[0]
+        print part
+        part2=pattern.sub('',part)
+        dictin={part1:part2}
+        mes_dict.update(dictin)
+    print mes_dict
+    j=0
+    str_mes=""
+    for i in range(0,len(cordinateList)):
+        print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++="
+        j=i
+        j=j+1
+        if(j>=len(cordinateList)):
+            j=0
+        print cordinateList[i]
+        print j,type(j)
+        print cordinateList[j]
+        print mes_dict[cordinateList[i]]
+        print mes_dict[cordinateList[j]]
+        print mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]
+        print serviceNameList[i]
+
+        str_mes=str_mes+(mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]+" via("+serviceNameList[i]+") \n")
+
+    route= str_mes+"Total price = $"+str(totalpriceList)
+    print route
+    twilio_use.setRoute(route)
     return render_template('display.html', result=optimalRoute)
 
 @app.route('/notify', methods=['POST'])

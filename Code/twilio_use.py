@@ -1,18 +1,21 @@
 from twilio.rest import TwilioRestClient
-body=""
+message=""
 # put your own credentials here
-ACCOUNT_SID = 'ACa9eaa9afdf09bbfe1da3b67282727d1b'
-AUTH_TOKEN = '647b45cab2a4dddd6a9caad0de1cffa6'
+ACCOUNT_SID = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' #Will add the authorization on the demo day
+AUTH_TOKEN = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 def setRoute(route):
-    global body
-    body=route
+    print "inside teilio_use--> setRoute"
+    global message
+    message=route
+    print message
 def sendMessage(number):
+    print "inside teilio_use--> send message"
     global body
     client.messages.create(
         to=number,
         from_='+19518214747',
         #body=body,
-        body="Test",
+        body=message,
     )
