@@ -92,6 +92,8 @@ def price():
         print e
         if str(e) == "1":
             return render_template('404.html', result=e)
+        elif str(e)=="need more than 2 values to unpack":
+            return render_template("noservice.html",result=e)
         else:
             return render_template('server_error.html')
     print '\n'
@@ -153,26 +155,28 @@ def price():
     print mes_dict
     j=0
     str_mes=""
-    for i in range(0,len(cordinateList)):
-        print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++="
-        j=i
-        j=j+1
-        if(j>=len(cordinateList)):
-            j=0
-        print cordinateList[i]
-        print j,type(j)
-        print cordinateList[j]
-        print mes_dict[cordinateList[i]]
-        print mes_dict[cordinateList[j]]
-        print mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]
-        print serviceNameList[i]
+    if len(mes_dict)==len(cordinateList):
+        for i in range(0,len(cordinateList)):
+            print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++="
+            j=i
+            j=j+1
+            if(j>=len(cordinateList)):
+                j=0
+            print cordinateList[i]
+            print j,type(j)
+            print cordinateList[j]
+            print mes_dict[cordinateList[i]]
+            print mes_dict[cordinateList[j]]
+            print mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]
+            print serviceNameList[i]
 
-        str_mes=str_mes+(mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]+" via("+serviceNameList[i]+") \n")
+            str_mes=str_mes+(mes_dict[cordinateList[i]]+" --> "+mes_dict[cordinateList[j]]+" via("+serviceNameList[i]+") \n")
 
-    route= str_mes+"Total price = $"+str(totalpriceList)
-    print route
-    twilio_use.setRoute(route)
-    return render_template('display.html', result=optimalRoute)
+        route= str_mes+"Total price = $"+str(totalpriceList)
+        print route
+        twilio_use.setRoute(route)
+        return render_template('display.html', result=optimalRoute)
+    return render_template('server_error.html')
 
 @app.route('/notify', methods=['POST'])
 def sendRoute():
