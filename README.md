@@ -6,11 +6,11 @@ Project Definition: Trip Planner using Uber vs Lyft's Price Estimation
   - You can have multiple solutions for the given route.
   
   
-When we run the project, main.py will be executed and refer.html file will be opened. User need to write source and destination locations in the givn text fields. User can add multiple destinations. (We need to fix the starting and ending location.)
+When we run the project, main.py will be executed and refer.html file will be opened. User need to write source and destination locations in the given text fields. User can add multiple destinations.
 
-Firstly, user need to click button "Find Locations". By clicking this button google map will show all locations in the map. By having this, User can check whether correct locations are selected or not.
+Firstly, user need to click button "Get Locations". By clicking this button google map API will populate the latitude and longitude and all the locations will be shown in a map. By having this, User can check whether correct locations are selected or not.
 
-Secondly, user need to click button "Find Taxi". By clicking this, we are calling Lyft.py and Uber.py files. In each file we have written code to calculate price according the user route. To find cost optimum path, we have written code into BusinessLogic.py and try_tsp.py files.
+Secondly, user need to click button "Find Cab/Taxi". By clicking this, we are calling Lyft and Uber APIs and the code for the same is written in Lyft.py and Uber.py files.In each file we have written code to calculate price according the user route. To find cost optimum path, we have written code into BusinessLogic.py and try_tsp.py files.
 We have used Travel Salesman Algorithm to find cost effective route (which give the best route according to the cost).
 We have shown cost effective route only using Uber and Lyft too.
 
