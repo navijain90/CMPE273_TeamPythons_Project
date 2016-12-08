@@ -6,7 +6,7 @@ Project Definition: Trip Planner using Uber vs Lyft's Price Estimation
   - You can have multiple solutions for the given route.
   
   
-When we execute the project, refer.html file will be opened. User need to write source and destination locations in the givn text fields. User can add multiple destinations. (We need to fix the starting and ending location.)
+When we run the project, main.py will be executed and refer.html file will be opened. User need to write source and destination locations in the givn text fields. User can add multiple destinations. (We need to fix the starting and ending location.)
 
 Firstly, user need to click button "Find Locations". By clicking this button google map will show all locations in the map. By having this, User can check whether correct locations are selected or not.
 
