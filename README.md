@@ -14,6 +14,8 @@ Secondly, user need to click button "Find Taxi". By clicking this, we are callin
 We have used Travel Salesman Algorithm to find cost effective route (which give the best route according to the cost).
 We have shown cost effective route only using Uber and Lyft too.
 
+We are storing routes and its cost into database, we have analysed those data and have shown graph representation to show which cab service is best and cost effective. So user will get basic idea which cab to book.
+
 Niche Feature: We are showing mixed solution. For ex user have added source location as A and destinatain locations B, C, D. Sometimes it happens like for A ==> B, Lyft is giving minimum cost. And B ==> C, Uber is giving minimum cost. So, our TSP algorithm works properly with both and shows the best route with minimum cost. This is recommended route according to us as this is the optimum route.
 
 Lastly, we have added text message functionality. So, user will get text message for the optimum route. By having this feature, user does not require to find same route again and again.
