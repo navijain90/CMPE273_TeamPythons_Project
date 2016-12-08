@@ -1,11 +1,28 @@
-#CMPE273: Fantastic Four Project
+#Team: Fantastic Four
 
-Project Definition: Trip Planner using Uber vs Lyft's Price Estimation
+##Project : Plan My Trip
 
-  - You can plan a trip which consists of a set of places and estimate the total cost between Uber and Lyft.
-  - You can have multiple solutions for the given route.
+  - Plan a trip with multiple locations and this application will calculate the best optimal route with best price comparing       both Uber & Lyft
+  - You can have multiple solutions with both user input route as well as optimal.
+  - SMS Functionality using Twilio API is added in the application
+  - User can analyse trend of comparing the Uber and Lyft from the persistant data that we have strored in Amazon RDS (MySQL)
+
+##Technology Used:
+  - Python 
+  - Flask micro framework
+  - MySQL
+  - Bootstrap, HTML5, CSS3, JQuery, Ajax
   
+##API Used:
+  - Uber 
+  - Lyft
+  - Twilio
+  - Google Map
+  - Google Places
   
+##Algorithm:
+  - Travelling Salesman Problem
+
 When we run the project, main.py will be executed and refer.html file will be opened. User need to write source and destination locations in the given text fields. User can add multiple destinations.
 
 Firstly, user need to click button "Get Locations". By clicking this button google map API will populate the latitude and longitude and all the locations will be shown in a map. By having this, User can check whether correct locations are selected or not.
