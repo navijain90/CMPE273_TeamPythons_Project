@@ -298,6 +298,7 @@ console.log(counter);
               //  start = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
                console.log(results[0].geometry.location);
           } else {
+			   document.getElementById("getloc").disabled = false;
             alert('Geocode was not successful for the following reason: ' + status);
           }
         });
