@@ -39,7 +39,11 @@ Lastly, we have added text message functionality. So, user will get text message
 
 ###Output to the user given input consist of 5 sets of solution (including our recommended solution)
 1) Uber solution considering user input route like  A->B->C->D->A (using only Uber)
+
 2) Uber solution considering optimal route based on price like  A->C->D->B->A (using only Uber)
+
 3) lyft solution considering user input route like  A->B->C->D->A (using only lyft)
+
 4) lyft solution considering optimal route based on price like  A->C->D->B->A (using only lyft)
+
 5) Using "Lyft - Uber" (which will show optimum route)
