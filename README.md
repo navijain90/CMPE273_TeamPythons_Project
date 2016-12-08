@@ -23,6 +23,7 @@
 ##Algorithm:
   - Travelling Salesman Problem
 
+##Project Description:
 When we run the project, main.py will be executed and refer.html file will be opened. User need to write source and destination locations in the given text fields. User can add multiple destinations.
 
 Firstly, user need to click button "Get Locations". By clicking this button google map API will populate the latitude and longitude and all the locations will be shown in a map. By having this, User can check whether correct locations are selected or not.
