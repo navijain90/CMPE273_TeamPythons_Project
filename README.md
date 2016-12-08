@@ -46,4 +46,4 @@ Lastly, we have added text message functionality. So, user will get text message
 
 4) lyft solution considering optimal route based on price like  A->C->D->B->A (using only lyft)
 
-5) Using "Lyft - Uber" (which will show optimum route)
+5) Using "Lyft - Uber" (which will show optimum route - "mixed solution")
